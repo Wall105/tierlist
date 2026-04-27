@@ -28,6 +28,23 @@
             transition: opacity 0.3s ease-in-out;
         }
 
+        /* Nom du Setup en haut */
+        #setup-name {
+            position: absolute;
+            top: 30px;
+            font-size: 26px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 12px 30px;
+            border-radius: 8px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #ffbf7f; /* Petite ligne stylée */
+            z-index: 10;
+            transition: opacity 0.3s ease-in-out;
+        }
+
         /* Boutons de navigation */
         .nav-btn {
             position: absolute;
@@ -63,31 +80,11 @@
             border-radius: 20px;
             letter-spacing: 2px;
         }
-
-        /* Lien vers la tierlist en haut */
-        #tierlist-link {
-            position: absolute;
-            top: 20px;
-            color: #ffbf7f;
-            text-decoration: none;
-            font-weight: bold;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 1px solid #ffbf7f;
-            transition: 0.2s;
-            z-index: 10;
-        }
-
-        #tierlist-link:hover {
-            background: #ffbf7f;
-            color: #000;
-        }
     </style>
 </head>
 <body>
 
-    <a id="tierlist-link" href="https://tiermaker.com/create/tierlist-setup-squadir-19418475" target="_blank">Aller faire la TierList</a>
+    <div id="setup-name">Chargement...</div>
 
     <button class="nav-btn" id="prev-btn" onclick="changeImage(-1)">&#10094;</button>
     
@@ -98,29 +95,47 @@
     <div id="counter">1 / 18</div>
 
     <script>
-        // Liste de tes 18 images. Change les noms si ce sont des .png par exemple
-        const images = [
-            "1.jpg", "2.jpg", "3.jpg", 
-            "4.jpg", "5.jpg", "6.jpg", 
-            "7.png", "8.jpeg", "9.jpg", 
-            "10.jpg", "11.jpg", "12.jpg", 
-            "13.jpg", "14.jpg", "15.jpg", 
-            "16.jpg", "17.jpg", "18.png"
+        // Liste des images AVEC leurs noms. Change les noms et les fichiers ici.
+        const setups = [
+            { src: "1.jpg", name: "VwExp" },
+            { src: "2.jpg", name: "ytbana" },
+            { src: "3.jpg", name: "Fyrax" },
+            { src: "4.jpg", name: "Nyrox207z" },
+            { src: "5.jpg", name: "sqd_bryan" },
+            { src: "6.jpg", name: "ZenoWKEY" },
+            { src: "7.png", name: "Laloane" },
+            { src: "8.jpeg", name: "Slayzyxx" },
+            { src: "9.jpg", name: "Clemsrider74" },
+            { src: "10.jpg", name: "Zapor" },
+            { src: "11.jpg", name: "Nallatic" },
+            { src: "12.jpg", name: "mider" },
+            { src: "13.jpg", name: "Brondi" },
+            { src: "14.jpg", name: "Moha" },
+            { src: "16.jpg", name: "lucille9191" },
+            { src: "17.jpg", name: "togno" },
+            { src: "18.png", name: "M8 Siwaa" },
+            { src: "19.png", name: "Nanass212" }
+
         ];
 
         let currentIndex = 0;
         const imgElement = document.getElementById("main-image");
+        const nameElement = document.getElementById("setup-name");
         const counterElement = document.getElementById("counter");
 
-        // Fonction pour afficher l'image selon l'index
+        // Fonction pour afficher l'image et le nom selon l'index
         function updateImage() {
-            // Petit effet de fondu
+            // Petit effet de fondu sur l'image et le texte
             imgElement.style.opacity = 0;
+            nameElement.style.opacity = 0;
             
             setTimeout(() => {
-                imgElement.src = images[currentIndex];
-                counterElement.innerText = (currentIndex + 1) + " / " + images.length;
+                imgElement.src = setups[currentIndex].src;
+                nameElement.innerText = setups[currentIndex].name;
+                counterElement.innerText = (currentIndex + 1) + " / " + setups.length;
+                
                 imgElement.style.opacity = 1;
+                nameElement.style.opacity = 1;
             }, 150); // Temps du fondu
         }
 
@@ -129,10 +144,10 @@
             currentIndex += direction;
             
             // Boucle : si on dépasse la fin, on revient au début, et inversement
-            if (currentIndex >= images.length) {
+            if (currentIndex >= setups.length) {
                 currentIndex = 0;
             } else if (currentIndex < 0) {
-                currentIndex = images.length - 1;
+                currentIndex = setups.length - 1;
             }
             
             updateImage();
